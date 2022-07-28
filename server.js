@@ -3,7 +3,7 @@ const app = express();
 const server = require("http").Server(app);
 const { v4: uuidv4 } = require("uuid");
 app.set("view engine", "ejs");
-const io = require("socket.io")(server, {
+const io = require("socket.io")(server, { // socket.io
   cors: {
     origin: '*'
   }
@@ -24,7 +24,7 @@ app.get("/:room", (req, res) => {
   res.render("room", { roomId: req.params.room });
 });
 
-io.on("connection", (socket) => {
+io.on("connection", (socket) => { // socket.io connection
   socket.on("join-room", (roomId, userId, userName) => {
     socket.join(roomId);
     socket.to(roomId).broadcast.emit("user-connected", userId);
